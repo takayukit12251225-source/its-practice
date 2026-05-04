@@ -141,6 +141,40 @@ export default function ExamScreen({
                       // 複数小問の場合は、subQuestionsの個別処理
                       if (q.subQuestions && q.questions) {
                         return q.questions.map((subQ) => {
+                          if (subQ.isTwoAnswers) {
+                            const subLabels = ["①", "②"];
+                            return [0, 1].map((idx) => {
+                              const ans = answers[subQ.id + "_" + idx] || "";
+                              const len = ans.length;
+                              const over = len > subQ.charLimit;
+                              const fullLabel = formatQuestionLabel(
+                                activeProblem.id,
+                                gIdx,
+                                subQ.label + subLabels[idx]
+                              );
+                              return (
+                                <div key={subQ.id + "_" + idx} className="q-block">
+                                  <div className="q-meta">
+                                    <span className="q-label">{fullLabel}</span>
+                                    <span className="q-limit">{subQ.charLimit}字以内</span>
+                                  </div>
+                                  <textarea
+                                    className={`q-textarea ${over ? "over" : ""}`}
+                                    value={ans}
+                                    onChange={(e) =>
+                                      onAnswerChange(subQ.id + "_" + idx, e.target.value)
+                                    }
+                                    placeholder={`${subQ.charLimit}字以内で解答してください`}
+                                    rows={3}
+                                  />
+                                  <div className={`char-count ${over ? "over" : ""}`}>
+                                    {len} / {subQ.charLimit} 字
+                                    {over ? " ⚠ 字数超過" : ""}
+                                  </div>
+                                </div>
+                              );
+                            });
+                          }
                           const ans = answers[subQ.id] || "";
                           const len = ans.length;
                           const over = len > subQ.charLimit;
