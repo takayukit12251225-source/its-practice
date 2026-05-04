@@ -1,0 +1,1010 @@
+/* ===== リセット & ベース ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:        #1e3a5f;
+  --navy-dark:   #142a47;
+  --navy-light:  #2d5a9e;
+  --navy-bg:     #eef2f8;
+  --gray-50:     #f8f9fa;
+  --gray-100:    #f0f2f4;
+  --gray-200:    #dee2e6;
+  --gray-400:    #adb5bd;
+  --gray-500:    #868e96;
+  --gray-700:    #495057;
+  --gray-900:    #212529;
+  --white:       #ffffff;
+  --yellow:      #f59e0b;
+  --red:         #dc2626;
+  --green:       #16a34a;
+  --orange:      #d97706;
+  --green-bg:    #dcfce7;
+  --red-bg:      #fee2e2;
+  --orange-bg:   #fef3c7;
+  --timer-h:     60px;
+  --tab-h:       48px;
+}
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+button { cursor: pointer; font-family: inherit; }
+textarea { font-family: inherit; }
+
+/* ===== トップ画面 ===== */
+.top-screen {
+  min-height: 100vh;
+}
+
+.top-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--white);
+  padding: 64px 20px 56px;
+  text-align: center;
+}
+
+.top-hero-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.top-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  padding: 4px 16px;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+}
+
+.top-hero h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.top-subtitle {
+  font-size: 1.05rem;
+  opacity: 0.85;
+}
+
+.top-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+  margin-bottom: 14px;
+}
+
+.year-list { display: flex; flex-direction: column; gap: 12px; }
+
+.year-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: left;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.year-card:hover {
+  border-color: var(--navy-light);
+  box-shadow: 0 4px 16px rgba(30,58,95,0.12);
+  transform: translateY(-2px);
+}
+
+.year-card-left { display: flex; flex-direction: column; gap: 4px; }
+
+.year-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.year-meta { font-size: 0.82rem; color: var(--gray-500); }
+
+.year-arrow {
+  font-size: 1.2rem;
+  color: var(--navy-light);
+  font-weight: 700;
+}
+
+.info-section {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-list li {
+  padding-left: 1.4em;
+  position: relative;
+  color: var(--gray-700);
+  font-size: 0.9rem;
+}
+
+.info-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--navy-light);
+}
+
+/* ===== 問題選択画面 ===== */
+.select-screen {
+  min-height: 100vh;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.select-header { display: flex; flex-direction: column; gap: 8px; }
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--navy-light);
+  font-size: 0.9rem;
+  padding: 0;
+  align-self: flex-start;
+  transition: color 0.2s;
+}
+
+.back-btn:hover { color: var(--navy); text-decoration: underline; }
+
+.select-header h1 {
+  font-size: 1.5rem;
+  color: var(--navy);
+}
+
+.select-instruction { color: var(--gray-500); font-size: 0.95rem; }
+
+.problem-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.problem-card {
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.problem-card:hover:not(:disabled) {
+  border-color: var(--navy-light);
+  box-shadow: 0 4px 16px rgba(30,58,95,0.12);
+  transform: translateY(-2px);
+}
+
+.problem-card.selected {
+  border-color: var(--navy);
+  background: var(--navy-bg);
+}
+
+.problem-card:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.problem-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.selected-badge {
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1.5;
+}
+
+.card-summary {
+  font-size: 0.82rem;
+  color: var(--gray-700);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.card-footer { margin-top: auto; }
+
+.q-count {
+  font-size: 0.78rem;
+  color: var(--navy-light);
+  font-weight: 600;
+}
+
+.select-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 18px 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  position: sticky;
+  bottom: 16px;
+}
+
+.selected-count { font-size: 0.95rem; color: var(--gray-700); }
+
+.start-btn {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.start-btn:hover:not(:disabled) { background: var(--navy-dark); }
+
+.start-btn:disabled {
+  background: var(--gray-400);
+  cursor: not-allowed;
+}
+
+/* 試験画面 */
+.exam-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* タイマーバー */
+.timer-bar {
+  flex-shrink: 0;
+  background: var(--navy);
+  color: var(--white);
+  height: var(--timer-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.timer-left { display: flex; align-items: center; gap: 12px; }
+
+.timer-label {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.timer-value {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.timer-value.timer-yellow { color: var(--yellow); }
+.timer-value.timer-red {
+  color: var(--red);
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+.paused-badge {
+  background: var(--yellow);
+  color: var(--navy-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.timer-right { display: flex; gap: 8px; align-items: center; }
+
+.btn-pause {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: var(--white);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.btn-pause:hover { background: rgba(255,255,255,0.25); }
+
+.btn-score {
+  background: var(--white);
+  color: var(--navy);
+  border: none;
+  padding: 6px 18px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.btn-score:hover { background: var(--gray-100); }
+
+/* タブナビ */
+.tab-nav {
+  flex-shrink: 0;
+  height: var(--tab-h);
+  background: var(--white);
+  border-bottom: 2px solid var(--gray-200);
+  display: flex;
+  padding: 0 16px;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 18px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--gray-500);
+  font-size: 0.88rem;
+  white-space: nowrap;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn.active {
+  color: var(--navy);
+  border-bottom-color: var(--navy);
+  font-weight: 700;
+}
+
+.tab-num { font-weight: 700; }
+
+.tab-title-short {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 試験ボディ */
+.exam-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.exam-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 100%;
+}
+
+.panel {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.problem-panel {
+  background: var(--gray-50);
+  border-right: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.pdf-viewer-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pdf-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  flex: 1;
+}
+
+.problem-panel-mobile {
+  display: none;
+  padding: 16px;
+}
+
+.btn-pdf-open {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--white);
+  padding: 14px 24px;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-pdf-open:hover {
+  background: var(--navy-dark);
+}
+
+.answer-panel {
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.panel-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--gray-200);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.context-body { display: flex; flex-direction: column; gap: 8px; }
+
+.context-body p {
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--gray-700);
+}
+
+.context-spacer { height: 6px; }
+
+/* 設問グループ表示 */
+.questions-body {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.question-group {
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--white);
+}
+
+.group-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gray-200);
+  line-height: 1.6;
+}
+
+.question-item {
+  margin-bottom: 12px;
+  padding: 10px 0;
+}
+
+.question-item:last-child { margin-bottom: 0; }
+
+.q-number {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.q-text {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--gray-700);
+  margin: 0;
+}
+
+.sub-questions {
+  list-style: none;
+  padding: 6px 0 0 16px;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sub-questions li {
+  font-size: 0.78rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* 設問ブロック */
+.q-block {
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 18px;
+}
+
+.q-block:last-child { border-bottom: none; padding-bottom: 0; }
+
+.q-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.q-label {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 0.95rem;
+}
+
+.q-limit {
+  font-size: 0.78rem;
+  color: var(--gray-500);
+  background: var(--gray-100);
+  padding: 1px 8px;
+  border-radius: 10px;
+}
+
+.q-textarea {
+  width: 100%;
+  border: 2px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.93rem;
+  line-height: 1.7;
+  resize: vertical;
+  min-height: 76px;
+  transition: border-color 0.2s;
+}
+
+.q-textarea:focus {
+  outline: none;
+  border-color: var(--navy-light);
+}
+
+.q-textarea.over { border-color: var(--red); }
+
+.char-count {
+  font-size: 0.78rem;
+  color: var(--gray-500);
+  text-align: right;
+  margin-top: 4px;
+}
+
+.char-count.over {
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* 一時停止オーバーレイ */
+.pause-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+}
+
+.pause-card {
+  text-align: center;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 56px 80px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.pause-icon { font-size: 2.5rem; }
+
+.pause-card p {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.btn-resume {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.btn-resume:hover { background: var(--navy-dark); }
+
+/* モーダル */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+}
+
+.modal h3 {
+  font-size: 1.25rem;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.modal p { color: var(--gray-700); margin-bottom: 28px; font-size: 0.92rem; }
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-secondary {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover { background: var(--gray-200); }
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover { background: var(--navy-dark); }
+
+/* ===== 採点画面 ===== */
+.score-screen {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.score-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--white);
+  text-align: center;
+  padding: 48px 20px 40px;
+  margin: 0 -20px 32px;
+}
+
+.score-header h1 { font-size: 2rem; margin-bottom: 8px; }
+
+.time-used { opacity: 0.8; font-size: 0.92rem; }
+
+.score-summary {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  flex-wrap: wrap;
+}
+
+.summary-pct-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.summary-pct {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.summary-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+.result-pass { background: var(--green-bg); color: var(--green); }
+.result-mid  { background: var(--orange-bg); color: var(--orange); }
+.result-fail { background: var(--red-bg); color: var(--red); }
+
+.summary-note { font-size: 0.75rem; color: var(--gray-500); }
+
+.summary-marks {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+
+.summary-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.mark-icon { font-size: 2rem; font-weight: 700; line-height: 1; }
+.mark-num  { font-size: 1.4rem; font-weight: 700; }
+.mark-unit { font-size: 0.75rem; color: var(--gray-500); }
+
+.summary-mark.mark-circle .mark-icon,
+.summary-mark.mark-circle .mark-num { color: var(--green); }
+.summary-mark.mark-tri .mark-icon,
+.summary-mark.mark-tri .mark-num    { color: var(--orange); }
+.summary-mark.mark-cross .mark-icon,
+.summary-mark.mark-cross .mark-num  { color: var(--red); }
+
+/* 問題別採点 */
+.score-problem {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.score-problem-title {
+  font-size: 1.05rem;
+  color: var(--navy);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--gray-200);
+  margin-bottom: 16px;
+}
+
+.score-group {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.score-group:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.score-group-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--navy-bg);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.score-question {
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-left-width: 4px;
+}
+
+.score-question:last-child { margin-bottom: 0; }
+
+.score-question.mark-circle { border-left-color: var(--green); }
+.score-question.mark-tri    { border-left-color: var(--orange); }
+.score-question.mark-cross  { border-left-color: var(--red); }
+
+.sq-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.sq-label { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+
+.sq-mark { font-size: 1.3rem; font-weight: 700; }
+.sq-mark.mark-circle { color: var(--green); }
+.sq-mark.mark-tri    { color: var(--orange); }
+.sq-mark.mark-cross  { color: var(--red); }
+
+.sq-limit {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+.sq-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.sq-row-label {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--gray-500);
+  font-size: 0.78rem;
+  padding-top: 2px;
+  white-space: nowrap;
+}
+
+.sq-answer { color: var(--gray-900); }
+
+.no-answer {
+  color: var(--gray-400);
+  font-style: normal;
+}
+
+.sq-model { color: var(--green); font-weight: 600; }
+
+.commentary-row { background: var(--gray-50); border-radius: 6px; padding: 6px 10px; }
+
+.sq-commentary { color: var(--gray-700); font-size: 0.83rem; font-style: italic; }
+
+/* キーワードタグ */
+.kw-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.kw-tag {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.kw-ok { background: var(--green-bg); color: var(--green); }
+.kw-ng { background: var(--red-bg);   color: var(--red); }
+
+/* フッター */
+.score-footer { text-align: center; padding: 40px 0 20px; }
+
+.btn-restart {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 14px 52px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.btn-restart:hover { background: var(--navy-dark); }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 900px) {
+  .problem-cards { grid-template-columns: 1fr; }
+  .tab-title-short { display: none; }
+}
+
+@media (max-width: 768px) {
+  .top-hero h1  { font-size: 1.6rem; }
+  .top-hero     { padding: 48px 20px 40px; }
+
+  /* 試験画面：縦積みレイアウト */
+  .exam-screen  { height: 100dvh; }
+  .exam-body    { overflow-y: auto; }
+  .exam-layout  { grid-template-columns: 1fr; min-height: auto; }
+  .problem-panel { border-right: none; border-bottom: 1px solid var(--gray-200); height: auto; padding: 0; }
+  .answer-panel  { padding: 16px; }
+  .panel         { padding: 16px; }
+
+  /* PDF表示切り替え */
+  .pdf-viewer-container { display: none; }
+  .problem-panel-mobile { display: block; }
+
+  .timer-value  { font-size: 1.6rem; }
+  .timer-label  { display: none; }
+  .btn-pause    { padding: 5px 10px; font-size: 0.78rem; }
+  .btn-score    { padding: 5px 12px; font-size: 0.78rem; }
+
+  .score-summary { flex-direction: column; gap: 20px; align-items: flex-start; }
+  .summary-marks { margin-left: 0; }
+  .summary-pct   { font-size: 2.4rem; }
+}
+
+@media (max-width: 480px) {
+  .top-main { padding: 28px 14px 48px; }
+  .year-card { padding: 16px 18px; }
+  .select-screen { padding: 20px 14px 60px; }
+  .timer-bar { padding: 0 12px; }
+  .timer-value { font-size: 1.35rem; }
+  .panel { padding: 16px; }
+  .score-screen { padding: 0 14px 60px; }
+  .score-header { margin: 0 -14px 24px; padding: 40px 14px 32px; }
+  .modal { padding: 28px 20px; }
+  .pause-card { padding: 40px 32px; }
+}
