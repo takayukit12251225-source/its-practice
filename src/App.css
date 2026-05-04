@@ -964,6 +964,244 @@ textarea { font-family: inherit; }
 
 .btn-restart:hover { background: var(--navy-dark); }
 
+/* ===== 解答履歴ナビボタン（トップ画面） ===== */
+.history-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: left;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+
+.history-nav-btn:hover {
+  border-color: #16a34a;
+  box-shadow: 0 4px 16px rgba(22,163,74,0.12);
+  transform: translateY(-2px);
+}
+
+.history-nav-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.history-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.history-nav-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.history-nav-sub {
+  font-size: 0.82rem;
+  color: var(--gray-500);
+}
+
+.history-nav-arrow {
+  font-size: 1.2rem;
+  color: #16a34a;
+  font-weight: 700;
+}
+
+/* ===== 履歴一覧画面 ===== */
+.history-screen {
+  min-height: 100vh;
+}
+
+.history-hero {
+  background: linear-gradient(135deg, #1a3a2e 0%, #16a34a 100%);
+  color: var(--white);
+  padding: 48px 20px 40px;
+}
+
+.history-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-back-btn {
+  color: rgba(255,255,255,0.85) !important;
+  align-self: flex-start;
+  margin-bottom: 4px;
+}
+
+.history-back-btn:hover {
+  color: var(--white) !important;
+  text-decoration: underline;
+}
+
+.history-hero h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.history-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.history-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* 空状態 */
+.history-empty {
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.history-empty-icon {
+  font-size: 3.5rem;
+  opacity: 0.5;
+}
+
+.history-empty-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gray-700);
+}
+
+.history-empty-sub {
+  font-size: 0.88rem;
+  color: var(--gray-500);
+}
+
+/* 履歴リスト */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.history-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 18px 20px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.history-card:hover {
+  border-color: #16a34a;
+  box-shadow: 0 4px 16px rgba(22,163,74,0.1);
+  transform: translateY(-2px);
+}
+
+.history-card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.history-card-row1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.history-date {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+.history-pct-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.history-card-row2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-year-tag {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--navy-bg);
+  padding: 2px 10px;
+  border-radius: 6px;
+}
+
+.history-card-row3 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.hmark {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.hmark-circle { color: var(--green); }
+.hmark-tri    { color: var(--orange); }
+.hmark-cross  { color: var(--red); }
+.hmark-time   { color: var(--gray-500); }
+
+.history-card-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.history-card-arrow {
+  font-size: 1.1rem;
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.history-delete-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  color: var(--gray-400);
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.history-delete-btn:hover {
+  color: var(--red);
+  background: var(--red-bg);
+}
+
 /* ===== レスポンシブ ===== */
 @media (max-width: 900px) {
   .problem-cards { grid-template-columns: 1fr; }

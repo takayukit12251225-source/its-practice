@@ -1,6 +1,6 @@
 import { exams } from "../data/exams";
 
-export default function TopScreen({ onYearSelect }) {
+export default function TopScreen({ onYearSelect, onShowHistory }) {
   return (
     <div className="top-screen">
       <header className="top-hero">
@@ -33,6 +33,17 @@ export default function TopScreen({ onYearSelect }) {
               </button>
             ))}
           </div>
+        </section>
+
+        <section>
+          <button className="history-nav-btn" onClick={onShowHistory}>
+            <span className="history-nav-icon">📋</span>
+            <span className="history-nav-text">
+              <span className="history-nav-title">解答履歴</span>
+              <span className="history-nav-sub">過去の解答・採点結果を確認する</span>
+            </span>
+            <span className="history-nav-arrow">→</span>
+          </button>
         </section>
 
         <section className="info-section">

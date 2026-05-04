@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import TopScreen from "./components/TopScreen";
 import ProblemSelect from "./components/ProblemSelect";
 import ExamScreen from "./components/ExamScreen";
 import ScoreScreen from "./components/ScoreScreen";
+import HistoryScreen from "./components/HistoryScreen";
+import HistoryDetailScreen from "./components/HistoryDetailScreen";
 import { exams } from "./data/exams";
+import { computeScore } from "./utils/scoring";
+import { saveHistoryEntry } from "./utils/history";
 import "./App.css";
 
 const EXAM_DURATION = 90 * 60;
@@ -16,6 +20,15 @@ export default function App() {
   const [timeRemaining, setTimeRemaining] = useState(EXAM_DURATION);
   const [isPaused, setIsPaused] = useState(false);
   const [examActive, setExamActive] = useState(false);
+  const [selectedHistoryEntry, setSelectedHistoryEntry] = useState(null);
+
+  // タイマー切れ時の二重保存防止
+  const historySavedRef = useRef(false);
+
+  const examData = selectedYear ? exams[selectedYear] : null;
+  const selectedProblemData = examData
+    ? examData.problems.filter((p) => selectedProblems.includes(p.id))
+    : [];
 
   useEffect(() => {
     if (!examActive || isPaused) return;
@@ -28,6 +41,21 @@ export default function App() {
       setTimeRemaining((t) => {
         if (t <= 1) {
           setExamActive(false);
+          // タイマー切れ時の履歴保存
+          if (!historySavedRef.current) {
+            historySavedRef.current = true;
+            const score = computeScore(selectedProblemData, answers);
+            saveHistoryEntry({
+              id: Date.now(),
+              date: new Date().toISOString(),
+              yearKey: selectedYear,
+              yearLabel: examData?.year ?? "",
+              problemIds: selectedProblems,
+              answers: { ...answers },
+              timeUsed: EXAM_DURATION,
+              score,
+            });
+          }
           setScreen("score");
           return 0;
         }
@@ -47,12 +75,26 @@ export default function App() {
     setAnswers({});
     setTimeRemaining(EXAM_DURATION);
     setIsPaused(false);
+    historySavedRef.current = false;
     setExamActive(true);
     setScreen("exam");
   };
 
   const handleSubmit = () => {
     setExamActive(false);
+    const timeUsed = EXAM_DURATION - timeRemaining;
+    const score = computeScore(selectedProblemData, answers);
+    saveHistoryEntry({
+      id: Date.now(),
+      date: new Date().toISOString(),
+      yearKey: selectedYear,
+      yearLabel: examData?.year ?? "",
+      problemIds: selectedProblems,
+      answers: { ...answers },
+      timeUsed,
+      score,
+    });
+    historySavedRef.current = true;
     setScreen("score");
   };
 
@@ -66,14 +108,14 @@ export default function App() {
     setScreen("top");
   };
 
-  const examData = selectedYear ? exams[selectedYear] : null;
-  const selectedProblemData = examData
-    ? examData.problems.filter((p) => selectedProblems.includes(p.id))
-    : [];
-
   return (
     <>
-      {screen === "top" && <TopScreen onYearSelect={handleYearSelect} />}
+      {screen === "top" && (
+        <TopScreen
+          onYearSelect={handleYearSelect}
+          onShowHistory={() => setScreen("history")}
+        />
+      )}
       {screen === "select" && examData && (
         <ProblemSelect
           problems={examData.problems}
@@ -99,10 +141,24 @@ export default function App() {
       {screen === "score" && (
         <ScoreScreen
           problems={selectedProblemData}
-          year={examData?.year}
           answers={answers}
           timeUsed={EXAM_DURATION - timeRemaining}
           onRestart={handleRestart}
+        />
+      )}
+      {screen === "history" && (
+        <HistoryScreen
+          onBack={() => setScreen("top")}
+          onSelect={(entry) => {
+            setSelectedHistoryEntry(entry);
+            setScreen("historyDetail");
+          }}
+        />
+      )}
+      {screen === "historyDetail" && selectedHistoryEntry && (
+        <HistoryDetailScreen
+          entry={selectedHistoryEntry}
+          onBack={() => setScreen("history")}
         />
       )}
     </>
